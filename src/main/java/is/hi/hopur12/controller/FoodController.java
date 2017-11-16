@@ -17,6 +17,7 @@ import is.hi.hopur12.model.Food;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +49,9 @@ public class FoodController {
 	 * Bæta foodItem við DB
 	 */
 	@RequestMapping(value="/addFood", method=RequestMethod.GET)
-	public String addFood() {
+	public String addFood(ModelMap model) {
+		Food newFood = new Food();
+		model.addAttribute("foodInfo", newFood);
 		return "greeting/addFood";
 	}
 	
@@ -57,8 +60,10 @@ public class FoodController {
 	 * Sendir þig aftur á byrjendasíðu notendaviðmóts
 	 */
 	@RequestMapping(value="/declareFood", method=RequestMethod.POST)
-		public String justInfo(@ModelAttribute("foodInfo") Food food) {
-		foodServ.save(food);
+		public String justInfo(@ModelAttribute("foodInfo") Food food, ModelMap model) {
+		Food newFood = food;
+		model.remove("foodInfo");
+		foodServ.save(newFood);
 	    return "greeting/userInfo";
 	}
 }
