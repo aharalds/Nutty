@@ -66,5 +66,12 @@ public class FoodController {
 		foodServ.save(newFood);
 	    return "greeting/userInfo";
 	}
+    @RequestMapping(value="/declareeeseFood", method=RequestMethod.POST)
+    public String justInfo(@ModelAttribute("foodInfo") Food food, ModelMap model) {
+        Food newFood = food;
+        model.remove("foodInfo");
+        foodServ.save(newFood);
+        return "greeting/userInfo";
+    }
 }
 
