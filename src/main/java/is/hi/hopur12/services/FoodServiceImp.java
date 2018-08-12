@@ -82,5 +82,13 @@ public class FoodServiceImp implements FoodService {
 		return nut;
 	}
 
+	@Override
+	public Nutrition calcEaten(long id, Nutrition nut, int grams) {
+		calcFat(findOne(id),nut, grams);
+		calcCarb(findOne(id),nut, grams);
+		calcProtein(findOne(id),nut, grams);
+		return nut;
+	}
+
 
 }
